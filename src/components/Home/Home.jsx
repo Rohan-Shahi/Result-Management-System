@@ -3,6 +3,7 @@ import showcase from "../../assets/images/showcase.svg";
 import { GiSpeedBoat } from "react-icons/gi";
 import { BsFileEarmarkCheckFill } from "react-icons/bs";
 import { MdVisibility } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -26,14 +27,14 @@ export default function Home() {
           <div className="collapse navbar-collapse" id="navmenu">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <a href="/" className="nav-link">
+                <Link to="/register" className="nav-link">
                   Get Started
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a href="/" className="nav-link">
+                <Link to="/login" className="nav-link">
                   Go to Login
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -42,7 +43,7 @@ export default function Home() {
 
       {/* show case */}
 
-      <section className="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center ">
+      <section className="bg-dark text-light p-5 p-lg-0 pt-lg-5 mt-5 text-center ">
         <div className="container text-sm-start">
           <div className="d-sm-flex align-items-center justify-content-between">
             <div>
@@ -54,12 +55,16 @@ export default function Home() {
                 the details of Result,Pogress,Student,Course,Exam. It manages
                 all the information about Result, Activity, Exam, Result.
               </p>
-              <button className="btn btn-primary" data-bs-target="#enroll">
-                Register Here
+              <button className="btn btn-primary btn-sm">
+                <Link to="register" className="nav-link">
+                  Register Here
+                </Link>
               </button>
 
-              <button className="btn btn-success ms-2" data-bs-target="#enroll">
-                Login Here
+              <button className="btn btn-success ms-2 btn-sm">
+                <Link to="login" className="nav-link">
+                  Login Here
+                </Link>
               </button>
             </div>
             <img

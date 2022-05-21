@@ -1,15 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import login from "../../assets/images/login.png";
+import register from "../../assets/images/register.png";
 
-
-
-export default function Login() {
+export default function Register() {
   return (
     <>
-      <div className="login-wrapper">
-        {/* <!-- blue circle background --> */}
-        <div className="d-none d-md-block ball login bg-primary bg-gradient position-absolute rounded-circle"></div>
+      {/* <!-- Register Section --> */}
+      <div className="register-wrapper">
+        <div className="d-none d-md-block ball register bg-primary bg-gradient position-absolute rounded-circle"></div>
 
         {/* <!-- logo name --> */}
         <div className="position-absolute top-0 start-0 p-3">
@@ -18,21 +16,37 @@ export default function Login() {
           </Link>
         </div>
 
-        {/* <!-- Login Section --> */}
-        <div className="container login__form active">
+        <div className="container register__form">
           <div className="row vh-100 w-100 align-self-center">
+            <div className="d-none d-lg-block col-lg-6 col-xl-6 p-5">
+              <div className="row vh-100 p-5">
+                <div className="col align-self-center pt-4 me-5 text-center ">
+                  <img src={register} className="bounce" alt="" />
+                </div>
+              </div>
+            </div>
             <div className="col-12 col-lg-6 col-xl-6 px-5">
               <div className="row vh-100">
                 <div className="col align-self-center p-5 w-100">
-                  <h3 className="fw-bolder">WELCOME BACK !</h3>
+                  <h3 className="fw-bolder">REGISTER HERE !</h3>
                   <p className="fw-lighter fs-6">
-                    Don't have an account,{" "}
-                    <span id="signUp" className="text-primary">
-                      <Link to="/register">Register</Link>
+                    Have an account,{" "}
+                    <span id="signIn" role="button" className="text-primary">
+                      <Link to="/login">Login</Link>
                     </span>
                   </p>
-                  {/* <!-- form login section --> */}
+                  {/* <!-- form register section --> */}
                   <form action="" className="mt-5">
+                    <div className="mb-3">
+                      <label htmlFor="username" className="form-label">
+                        Username
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control text-indent shadow-sm bg-grey-light border-0 rounded-pill fw-lighter fs-7 p-3"
+                        placeholder="name1"
+                      />
+                    </div>
                     <div className="mb-3">
                       <label htmlFor="username" className="form-label">
                         Email
@@ -51,7 +65,7 @@ export default function Login() {
                         <input
                           type="password"
                           autoComplete="on"
-                          className="form-control text-indent auth__password shadow-sm bg-grey-light border-0 rounded-pill fw-lighter fs-7 p-3"
+                          className="form-control text-indent shadow-sm bg-grey-light border-0 rounded-pill fw-lighter fs-7 p-3"
                         />
                         <span className="password__icon text-primary fs-4 fw-bold bi bi-eye-slash"></span>
                       </div>
@@ -61,17 +75,10 @@ export default function Login() {
                         type="submit"
                         className="btn btn-dark btn-lg rounded-pill mt-4 w-100"
                       >
-                        Login
+                        Sign Up
                       </button>
                     </div>
                   </form>
-                </div>
-              </div>
-            </div>
-            <div className="d-none d-lg-block col-lg-6 col-xl-6 p-5">
-              <div className="row vh-100 p-5">
-                <div className="col align-self-center text-center">
-                  <img src={login} className="bounce" alt="" />
                 </div>
               </div>
             </div>

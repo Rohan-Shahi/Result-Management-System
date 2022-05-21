@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+.text-indent {
+  text-indent: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+//   body {
+//     overflow-y: hidden;
+//   }
+  /* add circle blue background */
+  .ball {
+    overflow: hidden;
+    transition: margin 1s;
+    width: 400px;
+    height: 400px;
+  }
+  .ball.login {
+    margin-left: 50%;
+    margin-top: 5%;
+  }
+  /* bouncing effect */
+  .bounce {
+    animation: bounce 2s infinite alternate;
+    -webkit-animation: bounce 2s infinite alternate;
+  }
+  @keyframes bounce {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-35px);
+    }
+  }
+  @-webkit-keyframes bounce {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-35px);
+    }
+  }
+
+  .login__form.active {
+    opacity: 1;
+    margin-left: 10% !important;
+  }
+}
+@media (max-width: 768px) {
+  .container .col-12.p-5 {
+    padding: 0px !important;
+  }
+}
+
+.login__form.active {
+  opacity: 1;
+  margin-left: 0%;
+
+}
+
+.login-wrapper{ 
+    overflow-y: hidden;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f0f0;
+}
