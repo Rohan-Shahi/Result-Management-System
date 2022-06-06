@@ -27,13 +27,13 @@ export default function Home() {
           <div className="collapse navbar-collapse" id="navmenu">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <Link to="/register" className="nav-link">
-                  Get Started
+                <Link to="/login-student" className="nav-link">
+                  Login as Student
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/login" className="nav-link">
-                  Go to Login
+                <Link to="/login-admin" className="nav-link">
+                  Login As Admin
                 </Link>
               </li>
             </ul>
@@ -56,14 +56,14 @@ export default function Home() {
                 all the information about Result, Activity, Exam, Result.
               </p>
               <button className="btn btn-primary btn-sm">
-                <Link to="register" className="nav-link">
-                  Register Here
+                <Link to="login-student" className="nav-link">
+                  Student Here
                 </Link>
               </button>
 
               <button className="btn btn-success ms-2 btn-sm">
-                <Link to="login" className="nav-link">
-                  Login Here
+                <Link to="login-admin" className="nav-link">
+                  Admin Here
                 </Link>
               </button>
             </div>
