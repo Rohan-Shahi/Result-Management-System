@@ -1,8 +1,58 @@
+import axios from "axios";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import React from "react";
 import { Link } from "react-router-dom";
 import register from "../../assets/images/register.png";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentLogin() {
+  const navigate = useNavigate();
+
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Enter valid email")
+      .max("255", "Email is too long")
+      .required("Email is required"),
+    password: Yup.string("Password not valid")
+      .min("6", "Minimum 6 chars required")
+      .required("Password is required"),
+  });
+
+  const {
+    values,
+    touched,
+    errors,
+    handleBlur,
+    handleChange,
+    resetForm,
+    handleSubmit,
+    isSubmitting,
+  } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: async (values, { setSubmitting }) => {
+      setSubmitting(true);
+      try {
+        let res = await axios.post(
+          "https://result-management-system-v1.herokuapp.com/api/users/login",
+          values
+        );
+        localStorage.setItem("credentials", JSON.stringify(res?.data?.data));
+        navigate("/dashboard");
+        resetForm();
+      } catch (e) {
+        alert(e);
+      }
+
+      setSubmitting(false);
+    },
+  });
   return (
     <>
       {/* <!-- Register Section --> */}
@@ -36,17 +86,7 @@ export default function StudentLogin() {
                     </span>
                   </p>
                   {/* <!-- form register section --> */}
-                  <form action="" className="mt-5">
-                    <div className="mb-3">
-                      <label htmlFor="username" className="form-label">
-                        Username
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control text-indent shadow-sm bg-grey-light border-0 rounded-pill fw-lighter fs-7 p-3"
-                        placeholder="name1"
-                      />
-                    </div>
+                  <form action="" className="mt-5" onSubmit={handleSubmit}>
                     <div className="mb-3">
                       <label htmlFor="username" className="form-label">
                         Email
@@ -55,7 +95,16 @@ export default function StudentLogin() {
                         type="email"
                         className="form-control text-indent shadow-sm bg-grey-light border-0 rounded-pill fw-lighter fs-7 p-3"
                         placeholder="name@example.com"
+                        name="email"
+                        value={values.email}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
                       />
+                      {touched.email && errors.email ? (
+                        <small className="text-danger ms-2">
+                          {errors.email} *
+                        </small>
+                      ) : null}
                     </div>
                     <div className="mb-3">
                       <label htmlFor="username" className="form-label">
@@ -65,15 +114,25 @@ export default function StudentLogin() {
                         <input
                           type="password"
                           autoComplete="on"
+                          name="password"
                           className="form-control text-indent shadow-sm bg-grey-light border-0 rounded-pill fw-lighter fs-7 p-3"
+                          value={values.password}
+                          onBlur={handleBlur}
+                          onChange={handleChange}
                         />
-                        <span className="password__icon text-primary fs-4 fw-bold bi bi-eye-slash"></span>
+                        {/* <span className="password__icon text-primary fs-4 fw-bold bi bi-eye-slash"></span> */}
                       </div>
+                      {touched.password && errors.password ? (
+                        <small className="text-danger ms-2">
+                          {errors.password} *
+                        </small>
+                      ) : null}
                     </div>
                     <div className="col text-center">
                       <button
                         type="submit"
                         className="btn btn-dark btn-lg rounded-pill mt-4 w-100"
+                        disabled={isSubmitting}
                       >
                         Login
                       </button>
