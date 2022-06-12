@@ -17,7 +17,9 @@ export default function AddStudent() {
     studentName: Yup.string("Student Name must be string").required(
       "Student name is required"
     ),
-    email: Yup.string().email("Enter valid email").required("Email is required"),
+    email: Yup.string()
+      .email("Enter valid email")
+      .required("Email is required"),
     password: Yup.string("Password not valid")
       .min("6", "Minimum 6 chars required")
       .required("Password is required"),
@@ -31,16 +33,23 @@ export default function AddStudent() {
     semester: Yup.string().required("Please select Semester"),
   });
 
-  const { values, touched, errors, handleBlur, handleChange, resetForm,handleSubmit } =
-    useFormik({
-      initialValues,
-      validationSchema,
-      onSubmit: (values) => {
-          console.log(values)
-      },
-    });
+  const {
+    values,
+    touched,
+    errors,
+    handleBlur,
+    handleChange,
+    resetForm,
+    handleSubmit,
+  } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
 
-//   console.log(errors,"errors")
+  //   console.log(errors,"errors")
 
   return (
     <>
@@ -79,7 +88,7 @@ export default function AddStudent() {
             onBlur={handleBlur}
             onChange={handleChange}
           />
-           {touched.email && errors.email ? (
+          {touched.email && errors.email ? (
             <small className="text-danger ms-2">{errors.email} *</small>
           ) : null}
         </div>
@@ -96,7 +105,7 @@ export default function AddStudent() {
             onBlur={handleBlur}
             onChange={handleChange}
           />
-           {touched.password && errors.password ? (
+          {touched.password && errors.password ? (
             <small className="text-danger ms-2">{errors.password} *</small>
           ) : null}
         </div>
@@ -114,7 +123,7 @@ export default function AddStudent() {
             onBlur={handleBlur}
             onChange={handleChange}
           />
-           {touched.address && errors.address ? (
+          {touched.address && errors.address ? (
             <small className="text-danger ms-2">{errors.address} *</small>
           ) : null}
         </div>
@@ -132,7 +141,7 @@ export default function AddStudent() {
             onBlur={handleBlur}
             onChange={handleChange}
           />
-           {touched.phone && errors.phone ? (
+          {touched.phone && errors.phone ? (
             <small className="text-danger ms-2">{errors.phone} *</small>
           ) : null}
         </div>

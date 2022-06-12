@@ -4,18 +4,10 @@ import login from "../../assets/images/login.png";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
-import useAuth from "../../customHooks/useAuth";
 
 export default function AdminLogin() {
-  const { setAuth } = useAuth();
-
+  
   const navigate = useNavigate();
-
-  // const handleSubmit = () => {
-  //   setAuth({user:"Student", pwd: "password" , roles:"student", accessToken:"qdniuy&2312nndouqaid23"});
-  //   localStorage.setItem("token","qdniuy&2312nndouqaid23");
-  //   navigate("/dashboard");
-  // }
 
   //Initial Formik value
 
@@ -41,27 +33,27 @@ export default function AdminLogin() {
     handleChange,
     resetForm,
     handleSubmit,
+    isSubmitting,
   } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { setSubmitting }) => {
+      setSubmitting(true);
       let res = await axios.post(
         "https://result-management-system-v1.herokuapp.com/api/admin/login",
         values
       );
+
       if (res?.data?.data) {
         const adminData = res?.data?.data;
-        setAuth({
-          user: "Admin",
-          email: adminData.email,
-          pwd: adminData.password,
-          isAdmin: adminData.isAdmin,
-          accessToken: adminData.password,
-        });
-        localStorage.setItem("token", adminData.password);
+        console.log(adminData);
+        localStorage.setItem("credentials", JSON.stringify(adminData));
+        setSubmitting(false);
         resetForm();
         navigate("/dashboard");
       } else {
+        setSubmitting(false);
+
         alert("Enter valid credentials");
         resetForm();
       }
@@ -141,8 +133,7 @@ export default function AdminLogin() {
                       <button
                         type="submit"
                         className="btn btn-dark btn-lg rounded-pill mt-4 w-100"
-
-                        // onClick={handleSubmit}
+                        disabled={isSubmitting}
                       >
                         Login
                       </button>
