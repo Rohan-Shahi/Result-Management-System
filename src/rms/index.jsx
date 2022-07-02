@@ -7,6 +7,7 @@ import AdminLogin from "../components/Login/AdminLogin";
 import StudentLogin from "../components/Login/StudentLogin";
 import AddStudent from "../components/Student/AddStudent";
 import CreateClass from "../components/StudentClass/CreateClass";
+import ManageClass from "../components/StudentClass/ManageClass";
 
 export default function Rms() {
   return (
@@ -17,8 +18,9 @@ export default function Rms() {
 
       {/* These routes needs to be protected */}
       <Route path="/dashboard" element={<Dashboard />}>
-        <Route path="create-class" element={<CreateClass/>}/>
-        <Route path="add-student" element={<AddStudent/>}/>
+        <Route path="create-class" element={<CreateClass />} />
+        <Route path="add-student" element={<AddStudent />} />
+        <Route path="manage-class" element={<ManageClass />} />
       </Route>
 
       <Route path="*" element={<h3>No Routes Found !</h3>} />

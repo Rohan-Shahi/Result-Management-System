@@ -1,20 +1,22 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
 export default function AddStudent() {
   const initialValues = {
-    studentName: "",
+    name: "",
     email: "",
     password: "",
     address: "",
-    phone: "",
-    course: "",
+    phone_number: "",
+    gender: "",
+    branch: "",
     semester: "",
   };
 
   const validationSchema = Yup.object().shape({
-    studentName: Yup.string("Student Name must be string").required(
+    name: Yup.string("Student Name must be string").required(
       "Student name is required"
     ),
     email: Yup.string()
@@ -26,10 +28,11 @@ export default function AddStudent() {
     address: Yup.string("Address must be string").required(
       "Address is required"
     ),
-    phone: Yup.string()
+    phone_number: Yup.string()
       .min(10, "Enter valid number")
       .required("Phone number is required"),
-    course: Yup.string().required("Please select course"),
+    branch: Yup.string().required("Please select branch"),
+    gender: Yup.string().required("Please select Gender"),
     semester: Yup.string().required("Please select Semester"),
   });
 
@@ -44,12 +47,18 @@ export default function AddStudent() {
   } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      try {
+        let res = await axios.post(
+          "https://result-management-system-v1.herokuapp.com/api/users/add",
+          values
+        );
+        console.log(res);
+      } catch (e) {
+        alert(e);
+      }
     },
   });
-
-  //   console.log(errors,"errors")
 
   return (
     <>
@@ -57,21 +66,21 @@ export default function AddStudent() {
 
       <form className="row g-3 mt-4" onSubmit={handleSubmit}>
         <div className="col-md-6">
-          <label htmlFor="studentName" className="form-label">
+          <label htmlFor="name" className="form-label">
             Name
           </label>
           <input
             type="text"
             className="form-control"
-            id="studentName"
-            name="studentName"
+            id="name"
+            name="name"
             placeholder="eg : Rohan Shahi"
-            value={values.studentName}
+            value={values.name}
             onBlur={handleBlur}
             onChange={handleChange}
           />
-          {touched.studentName && errors.studentName ? (
-            <small className="text-danger ms-2">{errors.studentName} *</small>
+          {touched.name && errors.name ? (
+            <small className="text-danger ms-2">{errors.name} *</small>
           ) : null}
         </div>
         <div className="col-md-6">
@@ -129,43 +138,73 @@ export default function AddStudent() {
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="phone" className="form-label">
+          <label htmlFor="phone_number" className="form-label">
             Phone
           </label>
           <input
             type="text"
             className="form-control"
-            id="phone"
-            name="phone"
-            value={values.phone}
+            id="phone_number"
+            name="phone_number"
+            value={values.phone_number}
             onBlur={handleBlur}
             onChange={handleChange}
           />
-          {touched.phone && errors.phone ? (
-            <small className="text-danger ms-2">{errors.phone} *</small>
+          {touched.phone_number && errors.phone_number ? (
+            <small className="text-danger ms-2">{errors.phone_number} *</small>
           ) : null}
         </div>
+
         <div className="col-md-6">
-          <label htmlFor="course" className="form-label">
-            Course
+          <label htmlFor="gender" className="form-label">
+            Gender
           </label>
           <select
-            id="course"
-            name="course"
+            id="gender"
+            name="gender"
             className="form-select"
-            defaultValue="BCA"
-            value={values.course}
+            value={values.gender}
             onBlur={handleBlur}
             onChange={handleChange}
           >
-            {/* <option selected>Choose...</option> */}
+            <option selected value="none">
+              Choose Gender...
+            </option>
+
+            <option>Male</option>
+            <option>FeMale</option>
+
+            <option>Other</option>
+          </select>
+          {touched.gender && errors.gender ? (
+            <small className="text-danger ms-2">{errors.gender} *</small>
+          ) : null}
+        </div>
+
+        <div className="col-md-6">
+          <label htmlFor="branch" className="form-label">
+            Branch
+          </label>
+          <select
+            id="branch"
+            name="branch"
+            className="form-select"
+            defaultValue="BCA"
+            value={values.branch}
+            onBlur={handleBlur}
+            onChange={handleChange}
+          >
+            <option selected value="none">
+              Choose Branch...
+            </option>
+
             <option>BCA</option>
             <option>CSIT</option>
 
             <option>BIT</option>
           </select>
-          {touched.course && errors.course ? (
-            <small className="text-danger ms-2">{errors.course} *</small>
+          {touched.branch && errors.branch ? (
+            <small className="text-danger ms-2">{errors.branch} *</small>
           ) : null}
         </div>
         <div className="col-md-6">
@@ -176,12 +215,13 @@ export default function AddStudent() {
             id="semester"
             name="semester"
             className="form-select"
-            defaultValue="1st"
             value={values.semester}
             onBlur={handleBlur}
             onChange={handleChange}
           >
-            {/* <option selected>Choose Semeseter...</option> */}
+            <option selected value="none">
+              Choose Semeseter...
+            </option>
             <option>1st</option>
             <option>2nd</option>
 

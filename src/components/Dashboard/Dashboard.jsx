@@ -62,10 +62,10 @@ export default function Dashboard() {
                 </div>
                 <ul className="sub-menu ">
                   <li>
-                    <Link to="/dashboard/create-class">Create Class</Link>
+                    <Link to="create-class">Create Class</Link>
                   </li>
                   <li>
-                    <a href="/">Manage Class</a>
+                    <Link to="manage-class">Manage Class</Link>
                   </li>
                 </ul>
               </li>
